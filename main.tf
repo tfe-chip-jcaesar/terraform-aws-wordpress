@@ -45,13 +45,13 @@ resource "aws_security_group" "wordpress" {
   tags = merge({ Name = "sg_${var.name}" }, var.common_tags)
 }
 
-resource "aws_instance" "bastion" {
+resource "aws_instance" "wordpress" {
   ami                         = var.ami
   instance_type               = var.size
   key_name                    = var.ssh_key
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.bastionHost.id]
+  vpc_security_group_ids      = [aws_security_group.wordpress.id]
 
   tags = merge({ Name = var.name }, var.common_tags)
 }
